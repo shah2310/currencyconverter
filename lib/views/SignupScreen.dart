@@ -1,19 +1,17 @@
 import 'package:bookshop/image/Images.dart';
-import 'package:bookshop/views/ExchangeRatesScreen.dart';
-import 'package:bookshop/views/SignupScreen.dart';
+import 'package:bookshop/services/AuthService.dart';
+import 'package:bookshop/views/LoginScreen.dart';
 import 'package:bookshop/widgets/CustomButtom.dart';
 import 'package:bookshop/widgets/CustomHeader.dart';
 import 'package:bookshop/widgets/CustomTextField.dart';
 import 'package:flutter/material.dart';
-import 'package:bookshop/services/AuthService.dart';
-import 'package:bookshop/widgets/BottomNavbar.dart';
 
-class LoginScreen extends StatefulWidget {
+class Signupscreen extends StatefulWidget {
   @override
   _LoginScreen createState() => _LoginScreen();
 }
 
-class _LoginScreen extends State<LoginScreen> {
+class _LoginScreen extends State<Signupscreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final AuthService _authService = AuthService();
@@ -24,7 +22,7 @@ class _LoginScreen extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomHeader(
-        title: 'Login',
+        title: 'Signup',
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -104,18 +102,18 @@ class _LoginScreen extends State<LoginScreen> {
                 SizedBox(height: 8),
                 Row(
                   children: [
-                    Text("Don't have an account?"),
+                    Text("Already have an account?"),
                     Spacer(),
                     TextButton(
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Signupscreen()),
+                              builder: (context) => LoginScreen()),
                         );
                       },
                       child: Text(
-                        "Sign Up",
+                        "Login",
                         style: TextStyle(
                           decoration: TextDecoration.underline,
                           color: Colors.pink,
@@ -129,7 +127,7 @@ class _LoginScreen extends State<LoginScreen> {
                 ),
                 SizedBox(height: 15),
                 CustomButton(
-                  text: 'Login',
+                  text: 'Register',
                   textStyle: TextStyle(fontSize: 18),
                   color: Colors.pink,
                   focusColor: Colors.white,
@@ -139,9 +137,6 @@ class _LoginScreen extends State<LoginScreen> {
                   borderRadius: 10,
                   fullWidth: true,
                   onPressed: () async {
-                    setState(() {
-                      isLoading = true;
-                    });
                     String email = emailController.text.trim();
                     String password = passwordController.text.trim();
 
@@ -150,29 +145,24 @@ class _LoginScreen extends State<LoginScreen> {
                         SnackBar(
                             content: Text('Please enter email and password')),
                       );
-                      setState(() {
-                        isLoading = false;
-                      });
                       return;
                     }
 
+                    // Call the register method
                     final user =
-                        await _authService.signInWithEmail(email, password);
+                        await _authService.registerWithEmail(email, password);
 
                     if (user != null) {
+                      // Navigate to the main screen after successful signup
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => ExchangeRatesScreen()),
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Failed to login')),
+                        SnackBar(content: Text('Failed to sign up')),
                       );
                     }
-                    setState(() {
-                      isLoading = false;
-                    });
                   },
                   loading: isLoading,
                   disabled: false,
