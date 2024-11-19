@@ -1,12 +1,11 @@
 import 'package:bookshop/image/Images.dart';
+import 'package:bookshop/services/AuthService.dart';
 import 'package:bookshop/views/ExchangeRatesScreen.dart';
 import 'package:bookshop/views/SignupScreen.dart';
 import 'package:bookshop/widgets/CustomButtom.dart';
 import 'package:bookshop/widgets/CustomHeader.dart';
 import 'package:bookshop/widgets/CustomTextField.dart';
 import 'package:flutter/material.dart';
-import 'package:bookshop/services/AuthService.dart';
-import 'package:bookshop/widgets/BottomNavbar.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

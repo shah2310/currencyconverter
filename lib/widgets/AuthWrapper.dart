@@ -1,8 +1,5 @@
 import 'package:bookshop/views/ExchangeRatesScreen.dart';
-import 'package:bookshop/views/HomeScreen.dart';
 import 'package:bookshop/views/LoginScreen.dart';
-import 'package:bookshop/views/SignupScreen.dart';
-import 'package:bookshop/widgets/BottomNavbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +16,7 @@ class AuthWrapper extends StatelessWidget {
             return LoginScreen();
           }
         } else {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );

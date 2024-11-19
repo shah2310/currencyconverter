@@ -1,8 +1,8 @@
+import 'dart:async';
+
 import 'package:bookshop/image/Images.dart';
-import 'package:bookshop/views/LoginScreen.dart';
 import 'package:bookshop/widgets/AuthWrapper.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
   @override

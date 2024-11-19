@@ -1,12 +1,7 @@
 import 'package:bookshop/firebase_options.dart';
-import 'package:bookshop/views/ExchangeRatesScreen.dart';
-import 'package:bookshop/views/LoginScreen.dart';
-import 'package:bookshop/views/SignupScreen.dart';
 import 'package:bookshop/views/SplashScreen.dart';
-import 'package:bookshop/widgets/AuthWrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

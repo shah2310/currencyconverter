@@ -1,5 +1,3 @@
-import 'package:bookshop/services/AuthService.dart';
-import 'package:bookshop/views/LoginScreen.dart';
 import 'package:flutter/material.dart';
 
 class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
