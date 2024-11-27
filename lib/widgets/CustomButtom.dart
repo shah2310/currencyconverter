@@ -1,3 +1,4 @@
+import 'package:bookshop/colors/Colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatefulWidget {
@@ -68,8 +69,8 @@ class _CustomButtonState extends State<CustomButton> {
           backgroundColor: widget.disabled
               ? widget.disabledColor ?? Colors.grey[300]
               : widget.loading
-                  ? widget.color ?? Colors.pink
-                  : widget.color ?? Colors.pink,
+                  ? widget.color ?? CustomColors.pinkMain
+                  : widget.color ?? CustomColors.pinkMain,
           foregroundColor: widget.focusColor ?? Colors.white,
           elevation: widget.elevation ?? 2,
           shape: RoundedRectangleBorder(

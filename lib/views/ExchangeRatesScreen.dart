@@ -1,11 +1,20 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:bookshop/colors/Colors.dart';
 import 'package:bookshop/services/AuthService.dart';
 import 'package:bookshop/services/ExchangeRateService.dart';
+import 'package:bookshop/services/firebase_service.dart';
 import 'package:bookshop/sharedPreferences/CurrencyPreferences.dart';
+import 'package:bookshop/views/CreateAlertScreen.dart';
 import 'package:bookshop/views/LoginScreen.dart';
+import 'package:bookshop/widgets/CurrencyGraph.dart';
 import 'package:bookshop/widgets/CustomButtom.dart';
 import 'package:bookshop/widgets/CustomDropdown.dart';
 import 'package:bookshop/widgets/CustomHeader.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class ExchangeRatesScreen extends StatefulWidget {
   @override
@@ -21,6 +30,9 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
   bool isLoading = true;
   String _baseAmount = '1';
   String? _convertedAmount = '';
+  User? user = FirebaseAuth.instance.currentUser;
+  List<double> _historicalRates = [];
+  List<String> _dates = [];
   List<String> currencies = [];
   final AuthService _authService = AuthService();
   final TextEditingController _baseController =
@@ -32,6 +44,7 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
     super.initState();
     fetchExchangeRates();
     _loadSavedCurrencies();
+    fetchCurrencyHistory();
   }
 
   Future<void> fetchExchangeRates() async {
@@ -47,6 +60,20 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
     });
 
     convertCurrency();
+  }
+
+    Future<void> fetchCurrencyHistory() async {
+    // Fetch and parse your historical currency data here
+    final response = await http.get(Uri.parse(
+        'https://api.example.com/currency-history?base=USD&to=PKR'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      log('$data asdasdsadas');
+      // setState(() {
+      //   _historicalRates = [...]; // Parse historical rates
+      //   _dates = [...]; // Parse corresponding dates
+      // });
+    }
   }
 
   Future<void> _loadSavedCurrencies() async {
@@ -123,11 +150,11 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(false),
-                    child: Text('Cancel', style: TextStyle(color: Colors.pink)),
+                    child: Text('Cancel', style: TextStyle(color: CustomColors.pinkMain)),
                   ),
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(true),
-                    child: Text('Logout', style: TextStyle(color: Colors.pink)),
+                    child: Text('Logout', style: TextStyle(color: CustomColors.pinkMain)),
                   ),
                 ],
               ),
@@ -208,6 +235,10 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
                   hint: 'Select a currency',
                 ),
               ),
+              //  CurrencyGraph(
+              //   exchangeRates: [280.0, 285.5, 290.0, 295.0, 300.0, 310.0],
+              //   dates: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+              // ),
             ],
           ),
           Padding(
@@ -215,10 +246,10 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
             child: CustomButton(
               text: "Create Alert",
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => AlertScreen()),
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AlertScreen()),
+                );
               },
             ),
           ),

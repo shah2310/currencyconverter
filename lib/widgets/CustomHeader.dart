@@ -1,3 +1,4 @@
+import 'package:bookshop/colors/Colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
@@ -25,7 +26,7 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: backgroundColor ?? Colors.pink,
+      backgroundColor: backgroundColor ?? CustomColors.pinkMain,
       elevation: elevation ?? 2,
       centerTitle: centerTitle,
       title: Text(

@@ -1,3 +1,4 @@
+import 'package:bookshop/colors/Colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -82,7 +83,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         labelStyle: TextStyle(
           fontSize: 18,
           color: _focusNode.hasFocus
-              ? widget.focusLabelColor ?? Colors.pink
+              ? widget.focusLabelColor ?? CustomColors.pinkMain
               : widget.labelStyle?.color ?? Colors.grey[600],
         ),
         hintText: widget.hintText,

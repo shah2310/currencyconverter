@@ -1,3 +1,4 @@
+import 'package:bookshop/colors/Colors.dart';
 import 'package:bookshop/image/Images.dart';
 import 'package:bookshop/services/AuthService.dart';
 import 'package:bookshop/views/LoginScreen.dart';
@@ -49,8 +50,8 @@ class _LoginScreen extends State<Signupscreen> {
                   borderWidth: 1,
                   controller: emailController,
                   keyboardType: TextInputType.text,
-                  focusBorderColor: Colors.pink,
-                  focusLabelColor: Colors.pink,
+                  focusBorderColor: CustomColors.pinkMain,
+                  focusLabelColor: CustomColors.pinkMain,
                   focusBorderWidth: 2,
                   prefixIcon: Icon(Icons.mail, color: Colors.grey[600]),
                   textInputAction: TextInputAction.done,
@@ -76,8 +77,8 @@ class _LoginScreen extends State<Signupscreen> {
                   borderWidth: 1,
                   controller: passwordController,
                   keyboardType: TextInputType.text,
-                  focusBorderColor: Colors.pink,
-                  focusLabelColor: Colors.pink,
+                  focusBorderColor: CustomColors.pinkMain,
+                  focusLabelColor: CustomColors.pinkMain,
                   focusBorderWidth: 2,
                   textInputAction: TextInputAction.done,
                   prefixIcon: Icon(Icons.lock, color: Colors.grey[600]),
@@ -116,8 +117,8 @@ class _LoginScreen extends State<Signupscreen> {
                         "Login",
                         style: TextStyle(
                           decoration: TextDecoration.underline,
-                          color: Colors.pink,
-                          decorationColor: Colors.pink,
+                          color: CustomColors.pinkMain,
+                          decorationColor: CustomColors.pinkMain,
                           decorationStyle: TextDecorationStyle.solid,
                           decorationThickness: 1,
                         ),
@@ -129,7 +130,7 @@ class _LoginScreen extends State<Signupscreen> {
                 CustomButton(
                   text: 'Register',
                   textStyle: TextStyle(fontSize: 18),
-                  color: Colors.pink,
+                  color: CustomColors.pinkMain,
                   focusColor: Colors.white,
                   disabledColor: Colors.grey[300],
                   splashColor: Colors.grey[400],
