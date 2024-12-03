@@ -138,6 +138,7 @@ class _AlertScreenState extends State<AlertScreen> {
                   CustomDropdown<String>(
                     value: _baseCurrency,
                     items: _currencyItems,
+                    readOnly: true,
                     textChange: (newValue) {
                       _baseController.value = TextEditingValue(
                         text: newValue,
@@ -183,7 +184,14 @@ class _AlertScreenState extends State<AlertScreen> {
                 child: CustomButton(
                   text: "Create Alert",
                   onPressed: () async {
-               
+                //   double targetRate = double.parse(rateController.text);
+                // await FirebaseFirestore.instance.collection('alerts').add({
+                //   'targetRate': targetRate,
+                //   'currencyPair': 'USD/PKR',
+                //   'userId': user?.uid,
+                //   'createdAt': timestamp,
+                // });
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Alert created successfully!')),
                     );

@@ -44,7 +44,7 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
     super.initState();
     fetchExchangeRates();
     _loadSavedCurrencies();
-    fetchCurrencyHistory();
+    // fetchCurrencyHistory();
   }
 
   Future<void> fetchExchangeRates() async {
@@ -62,10 +62,10 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
     convertCurrency();
   }
 
-    Future<void> fetchCurrencyHistory() async {
+  Future<void> fetchCurrencyHistory() async {
     // Fetch and parse your historical currency data here
-    final response = await http.get(Uri.parse(
-        'https://api.example.com/currency-history?base=USD&to=PKR'));
+    final response = await http.get(
+        Uri.parse('https://api.example.com/currency-history?base=USD&to=PKR'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       log('$data asdasdsadas');
@@ -125,14 +125,26 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
     }).toList();
   }
 
-  void swapCurrencies() {
-    setState(() {
-      String temp = _targetCurrency!;
-      _targetCurrency = _convertCurrency;
-      _convertCurrency = temp;
-      _baseCurrency = _convertCurrency!;
-    });
-    fetchExchangeRates();
+  void swapCurrencies() async {
+    if (isLoading) return;
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      setState(() {
+        String temp = _targetCurrency!;
+        _targetCurrency = _convertCurrency;
+        _convertCurrency = temp;
+      });
+      exchangeRates = await _exchangeRateService.getExchangeRates(
+        baseCurrency: _targetCurrency!,
+      );
+      currencies = exchangeRates!['rates'].keys.toList();
+      convertCurrency();
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {}
   }
 
   @override
@@ -150,11 +162,13 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(false),
-                    child: Text('Cancel', style: TextStyle(color: CustomColors.pinkMain)),
+                    child: Text('Cancel',
+                        style: TextStyle(color: CustomColors.pinkMain)),
                   ),
                   TextButton(
                     onPressed: () => Navigator.of(context).pop(true),
-                    child: Text('Logout', style: TextStyle(color: CustomColors.pinkMain)),
+                    child: Text('Logout',
+                        style: TextStyle(color: CustomColors.pinkMain)),
                   ),
                 ],
               ),
@@ -235,10 +249,10 @@ class _ExchangeRatesScreenState extends State<ExchangeRatesScreen> {
                   hint: 'Select a currency',
                 ),
               ),
-              //  CurrencyGraph(
-              //   exchangeRates: [280.0, 285.5, 290.0, 295.0, 300.0, 310.0],
-              //   dates: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-              // ),
+//              CurrencyGraph(
+//   exchangeRates: [280.0, 285.5, 290.0, 295.0, 300.0, 310.0],
+//   dates: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+// ),
             ],
           ),
           Padding(
